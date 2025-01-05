@@ -22,124 +22,114 @@ class _ExplorePageState extends State<ExplorePage> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveLayout(
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const Text(
-                    'AppStake',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Invest in the future of mobile apps',
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(0.8),
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.explore),
-              title: const Text('Explore Projects'),
-              selected: true,
-              onTap: () {
-                Navigator.pop(context); // Close drawer
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.account_balance_wallet),
-              title: const Text('My Investments'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        const MyInvestmentsPage(),
-                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                      const begin = Offset(1.0, 0.0);
-                      const end = Offset.zero;
-                      const curve = Curves.easeInOutCubic;
-                      var tween = Tween(begin: begin, end: end).chain(
-                        CurveTween(curve: curve),
-                      );
-                      return SlideTransition(
-                        position: animation.drive(tween),
-                        child: child,
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.rocket_launch),
-              title: const Text('Start a Project'),
-              onTap: () {
-                Navigator.pop(context);
-                // TODO: Navigate to project creation
-              },
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.info_outline),
-              title: const Text('How It Works'),
-              onTap: () {
-                Navigator.pop(context);
-                // TODO: Navigate to how it works page
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.help_outline),
-              title: const Text('FAQ'),
-              onTap: () {
-                Navigator.pop(context);
-                // TODO: Navigate to FAQ page
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.contact_support_outlined),
-              title: const Text('Support'),
-              onTap: () {
-                Navigator.pop(context);
-                // TODO: Navigate to support page
-              },
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.person_outline),
-              title: const Text('Sign In'),
-              onTap: () {
-                Navigator.pop(context);
-                // TODO: Navigate to sign in page
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: const SizedBox(),
       body: Scaffold(
         appBar: AppBar(
           title: const Text('Discover App Projects'),
           actions: [
+            PopupMenuButton<String>(
+              icon: const Icon(Icons.explore),
+              tooltip: 'Navigation Menu',
+              itemBuilder: (context) => [
+                const PopupMenuItem(
+                  value: 'explore',
+                  child: Row(
+                    children: [
+                      Icon(Icons.explore),
+                      SizedBox(width: 8),
+                      Text('Explore Projects'),
+                    ],
+                  ),
+                ),
+                const PopupMenuItem(
+                  value: 'investments',
+                  child: Row(
+                    children: [
+                      Icon(Icons.account_balance_wallet),
+                      SizedBox(width: 8),
+                      Text('My Investments'),
+                    ],
+                  ),
+                ),
+                const PopupMenuItem(
+                  value: 'start',
+                  child: Row(
+                    children: [
+                      Icon(Icons.rocket_launch),
+                      SizedBox(width: 8),
+                      Text('Start a Project'),
+                    ],
+                  ),
+                ),
+                const PopupMenuDivider(),
+                const PopupMenuItem(
+                  value: 'how',
+                  child: Row(
+                    children: [
+                      Icon(Icons.info_outline),
+                      SizedBox(width: 8),
+                      Text('How It Works'),
+                    ],
+                  ),
+                ),
+                const PopupMenuItem(
+                  value: 'faq',
+                  child: Row(
+                    children: [
+                      Icon(Icons.help_outline),
+                      SizedBox(width: 8),
+                      Text('FAQ'),
+                    ],
+                  ),
+                ),
+                const PopupMenuItem(
+                  value: 'support',
+                  child: Row(
+                    children: [
+                      Icon(Icons.contact_support_outlined),
+                      SizedBox(width: 8),
+                      Text('Support'),
+                    ],
+                  ),
+                ),
+              ],
+              onSelected: (value) {
+                switch (value) {
+                  case 'investments':
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            const MyInvestmentsPage(),
+                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                          const begin = Offset(1.0, 0.0);
+                          const end = Offset.zero;
+                          const curve = Curves.easeInOutCubic;
+                          var tween = Tween(begin: begin, end: end).chain(
+                            CurveTween(curve: curve),
+                          );
+                          return SlideTransition(
+                            position: animation.drive(tween),
+                            child: child,
+                          );
+                        },
+                      ),
+                    );
+                    break;
+                  // Add other navigation cases here
+                }
+              },
+            ),
             IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
                 // TODO: Implement search
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.person_outline),
+              onPressed: () {
+                // TODO: Implement sign in
               },
             ),
           ],
@@ -204,12 +194,17 @@ class _ExplorePageState extends State<ExplorePage> {
                   final projects = snapshot.data ?? [];
 
                   return GridView.builder(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.only(
+                      top: 24.0,
+                      right: 24.0,
+                      bottom: 24.0,
+                      left: 24.0,
+                    ),
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      childAspectRatio: 1.2,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
+                      childAspectRatio: 0.85,
+                      crossAxisSpacing: 24,
+                      mainAxisSpacing: 24,
                     ),
                     itemBuilder: (context, index) => ProjectCard(
                       project: projects[index],
@@ -269,26 +264,40 @@ class ProjectCard extends StatelessWidget {
                 children: [
                   Text(
                     project.name,
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontSize: Theme.of(context).textTheme.titleMedium!.fontSize! * 1.25,
+                    ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 8),
                   Text(
                     project.description,
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize: Theme.of(context).textTheme.bodySmall!.fontSize! * 1.25,
+                    ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 12),
                   LinearProgressIndicator(
                     value: project.progressPercentage / 100,
                     backgroundColor: Colors.grey[200],
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('\$${project.raisedAmount.toStringAsFixed(0)} raised'),
-                      Text('${project.progressPercentage.toStringAsFixed(0)}%'),
+                      Text(
+                        '\$${project.raisedAmount.toStringAsFixed(0)} raised',
+                        style: TextStyle(
+                          fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize! * 1.25,
+                        ),
+                      ),
+                      Text(
+                        '${project.progressPercentage.toStringAsFixed(0)}%',
+                        style: TextStyle(
+                          fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize! * 1.25,
+                        ),
+                      ),
                     ],
                   ),
                 ],
