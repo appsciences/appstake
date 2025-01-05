@@ -4,6 +4,14 @@ import '../models/project.dart';
 class ProjectService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   
+  ProjectService() {
+    // Enable offline persistence
+    _firestore.settings = const Settings(
+      persistenceEnabled: true,
+      cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+    );
+  }
+
   Stream<List<Project>> getProjects({
     String? status,
     String? sortBy,
@@ -22,7 +30,6 @@ class ProjectService {
         query = query.orderBy('raisedAmount', descending: true);
         break;
       case 'trending':
-        // You might want to implement a more sophisticated trending algorithm
         query = query.orderBy('raisedAmount', descending: true)
                     .orderBy('createdAt', descending: true);
         break;
@@ -30,16 +37,43 @@ class ProjectService {
         query = query.orderBy('createdAt', descending: true);
     }
     
-    return query.snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) => Project.fromFirestore(doc)).toList();
-    });
+    return query
+        .withConverter(
+          fromFirestore: (snapshot, _) => Project.fromFirestore(snapshot),
+          toFirestore: (Project project, _) => project.toFirestore(),
+        )
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
   }
 
   Future<Project?> getProject(String id) async {
-    final doc = await _firestore.collection('projects').doc(id).get();
-    if (doc.exists) {
-      return Project.fromFirestore(doc);
+    try {
+      final doc = await _firestore
+          .collection('projects')
+          .doc(id)
+          .withConverter(
+            fromFirestore: (snapshot, _) => Project.fromFirestore(snapshot),
+            toFirestore: (Project project, _) => project.toFirestore(),
+          )
+          .get(const GetOptions(source: Source.cache));
+      
+      if (doc.exists) {
+        return doc.data();
+      }
+      
+      // If not in cache, try server
+      final serverDoc = await _firestore
+          .collection('projects')
+          .doc(id)
+          .withConverter(
+            fromFirestore: (snapshot, _) => Project.fromFirestore(snapshot),
+            toFirestore: (Project project, _) => project.toFirestore(),
+          )
+          .get();
+          
+      return serverDoc.data();
+    } catch (e) {
+      return null;
     }
-    return null;
   }
 } 

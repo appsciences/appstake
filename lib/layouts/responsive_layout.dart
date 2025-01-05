@@ -14,8 +14,8 @@ class ResponsiveLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth >= 1200) {
-          // Wide layout with permanent drawer
+        if (constraints.maxWidth >= 1200 && drawer is! SizedBox) {
+          // Only show permanent drawer if it's not a SizedBox
           return Row(
             children: [
               SizedBox(
@@ -26,7 +26,7 @@ class ResponsiveLayout extends StatelessWidget {
             ],
           );
         }
-        // Regular layout with drawer menu button
+        // Regular layout without drawer space
         return body;
       },
     );
