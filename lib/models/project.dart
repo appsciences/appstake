@@ -12,6 +12,8 @@ class Project {
   final DateTime deadline;
   final int investorCount;
   final int minInvestment;
+  final int projectedRevenue;
+  final int projectionYears;
 
   Project({
     required this.id,
@@ -25,6 +27,9 @@ class Project {
     required this.deadline,
     required this.investorCount,
     required this.minInvestment,
+
+    required this.projectedRevenue,
+    required this.projectionYears,
   });
 
   double get progressPercentage => (raisedAmount / targetAmount * 100).clamp(0, 100);
@@ -43,6 +48,8 @@ class Project {
       deadline: (data['deadline'] as Timestamp).toDate(),
       investorCount: data['investorCount'] ?? 0,
       minInvestment: data['minInvestment'] ?? 100,
+      projectedRevenue: data['projectedRevenue'] ?? 0,
+      projectionYears: data['projectionYears'] ?? 0,
     );
   }
 
