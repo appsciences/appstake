@@ -3,7 +3,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class SampleDataGenerator {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> generateSampleData() async {
+
+  Future<void> clearProjectData() async {
+    final snapshots = await _firestore.collection('projects').get();
+    final batch = _firestore.batch();
+    
+    for (var doc in snapshots.docs) {
+      batch.delete(doc.reference);
+    }
+    
+    await batch.commit();
+  }
+
+  Future<void> generateProjectData() async {
     final List<Map<String, dynamic>> sampleProjects = [
       {
         'name': 'FitTrack Pro',
@@ -16,6 +28,7 @@ class SampleDataGenerator {
         'deadline': Timestamp.fromDate(
           DateTime.now().add(const Duration(days: 45)),
         ),
+        'investorCount': 150,
         'projectedRevenue': 100,
         'projectionYears': 3,
       },
@@ -32,6 +45,7 @@ class SampleDataGenerator {
         ),
         'projectedRevenue': 100,
         'projectionYears': 3,
+        'investorCount': 220,
       },
       {
         'name': 'KidsLearn AI',
@@ -46,6 +60,7 @@ class SampleDataGenerator {
         ),
         'projectedRevenue': 100,
         'projectionYears': 3,
+        'investorCount': 180,
       },
       {
         'name': 'CryptoWallet Pro',
@@ -62,6 +77,7 @@ class SampleDataGenerator {
         ),
         'projectedRevenue': 100,
         'projectionYears': 3,
+        'investorCount': 617,
       },
       {
         'name': 'SocialChef',
@@ -76,6 +92,7 @@ class SampleDataGenerator {
         ),
         'projectedRevenue': 100,
         'projectionYears': 3,
+        'investorCount': 0,
       },
     ];
 

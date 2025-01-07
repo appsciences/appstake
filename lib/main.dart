@@ -5,8 +5,9 @@ import 'pages/explore_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FirebaseInitializer.initialize();
-  // Uncomment the next line to load sample data (only do this once)
-  await FirebaseInitializer.loadSampleData();
+  // Uncomment to reset database with fresh sample data
+  await FirebaseInitializer.blowProjectData();
+  await FirebaseInitializer.writeProjectSampleData();
   runApp(const AppStake());
 }
 

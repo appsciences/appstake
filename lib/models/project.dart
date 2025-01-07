@@ -14,6 +14,7 @@ class Project {
   final int minInvestment;
   final int projectedRevenue;
   final int projectionYears;
+  
 
   Project({
     required this.id,
@@ -27,7 +28,6 @@ class Project {
     required this.deadline,
     required this.investorCount,
     required this.minInvestment,
-
     required this.projectedRevenue,
     required this.projectionYears,
   });
