@@ -3,9 +3,9 @@ import '../pages/explore_page.dart';
 import '../pages/how_it_works_page.dart';
 import '../pages/front_page.dart';
 
-class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
+class TopFrontNavBar extends StatelessWidget implements PreferredSizeWidget {
 
-  const TopNavBar({
+  const TopFrontNavBar({
     super.key,
   });
 
@@ -13,7 +13,8 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: InkWell(
-        onTap: () => Navigator.pushReplacement(
+        onTap:  
+             () => Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const FrontPage(),
@@ -30,22 +31,17 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         TextButton.icon(
-          icon: const Icon(Icons.explore),
-          label: const Text('Explore Projects'),
-          onPressed: () => Navigator.pushReplacement(
+          icon: const Icon(Icons.lightbulb_outline),
+          label: const Text('Why appstake'),
+          onPressed: 
+              () => Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const ExplorePage(),
                   ),
                 ),
         ),
-        TextButton.icon(
-          icon: const Icon(Icons.rocket_launch),
-          label: const Text('Start a Project'),
-          onPressed:  () {
-                  // TODO: Navigate to start project
-                },
-        ),
+        
         TextButton.icon(
           icon: const Icon(Icons.info_outline),
           label: const Text('How It Works'),
@@ -64,17 +60,13 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
                 },
         ),
         const SizedBox(width: 16),
-        IconButton(
-          icon: const Icon(Icons.search),
-          onPressed: () {
-            // TODO: Implement search
-          },
-        ),
-        IconButton(
+        
+         TextButton.icon(
           icon: const Icon(Icons.person_outline),
-          onPressed: () {
-            // TODO: Implement sign in
-          },
+          label: const Text('Sign In'),
+          onPressed:  () {
+                  // TODO: Navigate to Sign IN
+                },
         ),
       ],
     );

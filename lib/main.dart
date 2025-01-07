@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'utils/firebase_initializer.dart';
-import 'pages/explore_page.dart';
+import 'pages/front_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +28,7 @@ class AppStake extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          color: Color.fromARGB(255, 247, 248, 245),
+          color: const Color.fromARGB(255, 247, 248, 245),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -40,7 +40,7 @@ class AppStake extends StatelessWidget {
           ),
         ),
       ),
-      home: const ExplorePage(),
+      home: const FrontPage(),
       debugShowCheckedModeBanner: false,
     );
   }

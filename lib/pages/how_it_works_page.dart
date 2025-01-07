@@ -7,7 +7,7 @@ class HowItWorksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const TopNavBar(currentPage: 'how'),
+      appBar: const TopNavBar(),
       body: ListView(
         padding: const EdgeInsets.all(24.0),
         children: [
