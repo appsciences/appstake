@@ -28,8 +28,8 @@ class ProjectService {
         break;
       case 'active':
         // First filter by active status, then sort by raised amount
-        query = query.where('status', isEqualTo: 'active')
-                    .orderBy('raisedAmount', descending: true);
+        query = query
+                    .orderBy('investorCount', descending: true);
         break;
       default:
         query = query.orderBy('createdAt', descending: true);
