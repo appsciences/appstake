@@ -25,7 +25,7 @@ class _ExplorePageState extends State<ExplorePage> {
     return ResponsiveLayout(
       drawer: const SizedBox(),
       body: Scaffold(
-        appBar: const TopNavBar(currentPage: 'explore'),
+        appBar: const TopNavBar(),
         body: Column(
           children: [
             // Filter section
