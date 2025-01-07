@@ -6,7 +6,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FirebaseInitializer.initialize();
   // Uncomment the next line to load sample data (only do this once)
-  // await FirebaseInitializer.loadSampleData();
+  //await FirebaseInitializer.loadSampleData();
   runApp(const AppStake());
 }
 

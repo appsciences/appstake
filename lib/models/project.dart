@@ -10,6 +10,8 @@ class Project {
   final String status; // 'active', 'funded', 'upcoming'
   final DateTime createdAt;
   final DateTime deadline;
+  final int projectedRevenue; // In thousands (100 = $100K)
+  final int projectionYears;
 
   Project({
     required this.id,
@@ -21,6 +23,8 @@ class Project {
     required this.status,
     required this.createdAt,
     required this.deadline,
+    required this.projectedRevenue,
+    required this.projectionYears,
   });
 
   double get progressPercentage => (raisedAmount / targetAmount * 100).clamp(0, 100);
@@ -37,6 +41,8 @@ class Project {
       status: data['status'] ?? 'upcoming',
       createdAt: (data['createdAt'] as Timestamp).toDate(),
       deadline: (data['deadline'] as Timestamp).toDate(),
+      projectedRevenue: data['projectedRevenue'] ?? 0,
+      projectionYears: data['projectionYears'] ?? 3,
     );
   }
 
@@ -50,6 +56,8 @@ class Project {
       'status': status,
       'createdAt': Timestamp.fromDate(createdAt),
       'deadline': Timestamp.fromDate(deadline),
+      'projectedRevenue': projectedRevenue,
+      'projectionYears': projectionYears,
     };
   }
 } 

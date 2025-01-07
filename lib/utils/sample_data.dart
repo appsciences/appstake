@@ -16,6 +16,8 @@ class SampleDataGenerator {
         'deadline': Timestamp.fromDate(
           DateTime.now().add(const Duration(days: 45)),
         ),
+        'projectedRevenue': 100, // $100K
+        'projectionYears': 3,
       },
       {
         'name': 'EcoMarket',
@@ -28,6 +30,8 @@ class SampleDataGenerator {
         'deadline': Timestamp.fromDate(
           DateTime.now().add(const Duration(days: 60)),
         ),
+        'projectedRevenue': 250, // $250K
+        'projectionYears': 3,
       },
       {
         'name': 'KidsLearn AI',
@@ -40,6 +44,8 @@ class SampleDataGenerator {
         'deadline': Timestamp.fromDate(
           DateTime.now().add(const Duration(days: 30)),
         ),
+        'projectedRevenue': 500, // $500K
+        'projectionYears': 5,
       },
       {
         'name': 'CryptoWallet Pro',
@@ -54,6 +60,8 @@ class SampleDataGenerator {
         'deadline': Timestamp.fromDate(
           DateTime.now().subtract(const Duration(days: 30)),
         ),
+        'projectedRevenue': 750, // $750K
+        'projectionYears': 3,
       },
       {
         'name': 'SocialChef',
@@ -66,6 +74,8 @@ class SampleDataGenerator {
         'deadline': Timestamp.fromDate(
           DateTime.now().add(const Duration(days: 90)),
         ),
+        'projectedRevenue': 150, // $150K
+        'projectionYears': 2,
       },
     ];
 
