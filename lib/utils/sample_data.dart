@@ -29,6 +29,8 @@ class SampleDataGenerator {
           DateTime.now().add(const Duration(days: 45)),
         ),
         'investorCount': 150,
+        'projectedRevenue': 100,
+        'projectionYears': 3,
       },
       {
         'name': 'EcoMarket',
@@ -41,6 +43,8 @@ class SampleDataGenerator {
         'deadline': Timestamp.fromDate(
           DateTime.now().add(const Duration(days: 60)),
         ),
+        'projectedRevenue': 100,
+        'projectionYears': 3,
         'investorCount': 220,
       },
       {
@@ -54,6 +58,8 @@ class SampleDataGenerator {
         'deadline': Timestamp.fromDate(
           DateTime.now().add(const Duration(days: 30)),
         ),
+        'projectedRevenue': 100,
+        'projectionYears': 3,
         'investorCount': 180,
       },
       {
@@ -69,6 +75,8 @@ class SampleDataGenerator {
         'deadline': Timestamp.fromDate(
           DateTime.now().subtract(const Duration(days: 30)),
         ),
+        'projectedRevenue': 100,
+        'projectionYears': 3,
         'investorCount': 617,
       },
       {
@@ -82,6 +90,8 @@ class SampleDataGenerator {
         'deadline': Timestamp.fromDate(
           DateTime.now().add(const Duration(days: 90)),
         ),
+        'projectedRevenue': 100,
+        'projectionYears': 3,
         'investorCount': 0,
       },
     ];

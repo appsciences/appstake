@@ -14,6 +14,7 @@ class Project {
   final int minInvestment;
   final int projectedRevenue;
   final int projectionYears;
+  
 
   Project({
     required this.id,
