@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/top_nav_bar.dart';
 
 class HowItWorksPage extends StatelessWidget {
   const HowItWorksPage({super.key});
@@ -6,9 +7,7 @@ class HowItWorksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('How It Works'),
-      ),
+      appBar: const TopNavBar(currentPage: 'how'),
       body: ListView(
         padding: const EdgeInsets.all(24.0),
         children: [

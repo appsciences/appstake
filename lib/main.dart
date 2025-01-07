@@ -19,18 +19,17 @@ class AppStake extends StatelessWidget {
       title: 'AppStake',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-          // Using blue as primary color for a professional finance look
+          seedColor: const Color.fromARGB(255, 33, 243, 75),
         ),
+        fontFamily: 'Roboto',
         useMaterial3: true,
-        // Customize card theme for project cards
         cardTheme: CardTheme(
-          elevation: 2,
+          elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
+          color: Color.fromARGB(255, 247, 248, 245),
         ),
-        // Customize button theme for investment buttons
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,
