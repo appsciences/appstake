@@ -15,12 +15,9 @@ class ProjectService {
   Stream<List<Project>> getProjects({
     String? status,
     String? sortBy,
+    int? limit,
   }) {
     Query query = _firestore.collection('projects');
-    
-    if (status != null && status != 'all') {
-      query = query.where('status', isEqualTo: status);
-    }
     
     switch (sortBy) {
       case 'newest':
@@ -29,12 +26,21 @@ class ProjectService {
       case 'mostFunded':
         query = query.orderBy('raisedAmount', descending: true);
         break;
-      case 'trending':
-        query = query.orderBy('raisedAmount', descending: true)
-                    .orderBy('createdAt', descending: true);
+      case 'active':
+        // First filter by active status, then sort by raised amount
+        query = query.where('status', isEqualTo: 'active')
+                    .orderBy('raisedAmount', descending: true);
         break;
       default:
         query = query.orderBy('createdAt', descending: true);
+    }
+
+    if (status != null && status != 'all' && sortBy != 'active') {
+      query = query.where('status', isEqualTo: status);
+    }
+
+    if (limit != null) {
+      query = query.limit(limit);
     }
     
     return query

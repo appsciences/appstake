@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/project_service.dart';
 import '../models/project.dart';
+import '../widgets/top_nav_bar.dart';
 
 class ProjectDetailPage extends StatelessWidget {
   final String projectId;
@@ -33,16 +34,7 @@ class ProjectDetailPage extends StatelessWidget {
               SliverAppBar(
                 expandedHeight: 400,
                 pinned: true,
-                title: Row(
-                  children: [
-                    Image.asset(
-                      'assets/images/logo.png',
-                      height: 40,
-                    ),
-                    const SizedBox(width: 12),
-                    const Text('Project Details'),
-                  ],
-                ),
+                title: const Text('Project Details'),
                 flexibleSpace: FlexibleSpaceBar(
                   background: Image.network(
                     project.imageUrl,
@@ -106,7 +98,7 @@ class ProjectDetailPage extends StatelessWidget {
                       // Right side - Investment card
                       Expanded(
                         child: Card(
-                          elevation: 4,
+                          elevation: 0,
                           child: Padding(
                             padding: const EdgeInsets.all(24.0),
                             child: Column(
