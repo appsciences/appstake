@@ -10,6 +10,8 @@ class Project {
   final String status; // 'active', 'funded', 'upcoming'
   final DateTime createdAt;
   final DateTime deadline;
+  final int investorCount;
+  final int minInvestment;
   final int projectedRevenue; // In thousands (100 = $100K)
   final int projectionYears;
 
@@ -23,6 +25,8 @@ class Project {
     required this.status,
     required this.createdAt,
     required this.deadline,
+    required this.investorCount,
+    required this.minInvestment,
     required this.projectedRevenue,
     required this.projectionYears,
   });
@@ -41,6 +45,8 @@ class Project {
       status: data['status'] ?? 'upcoming',
       createdAt: (data['createdAt'] as Timestamp).toDate(),
       deadline: (data['deadline'] as Timestamp).toDate(),
+      investorCount: data['investorCount'] ?? 0,
+      minInvestment: data['minInvestment'] ?? 100,
       projectedRevenue: data['projectedRevenue'] ?? 0,
       projectionYears: data['projectionYears'] ?? 3,
     );
@@ -56,6 +62,8 @@ class Project {
       'status': status,
       'createdAt': Timestamp.fromDate(createdAt),
       'deadline': Timestamp.fromDate(deadline),
+      'investorCount': investorCount,
+      'minInvestment': minInvestment,
       'projectedRevenue': projectedRevenue,
       'projectionYears': projectionYears,
     };
