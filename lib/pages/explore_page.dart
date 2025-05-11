@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/project.dart';
 import '../services/project_service.dart';
 import '../widgets/top_nav_bar.dart';
+import '../widgets/phone_image_preview.dart';
 
 class ExplorePage extends StatefulWidget {
   const ExplorePage({super.key});
@@ -187,7 +188,7 @@ class _ExplorePageState extends State<ExplorePage> {
           ),
         ),
         SizedBox(
-          height: 400, // Adjust based on your card size
+          height: 480, // Increased to fit taller cards
           child: StreamBuilder<List<Project>>(
             stream: stream,
             builder: (context, snapshot) {
@@ -209,7 +210,7 @@ class _ExplorePageState extends State<ExplorePage> {
                   return Padding(
                     padding: const EdgeInsets.only(right: 24.0),
                     child: SizedBox(
-                      width: 306, // Changed from 360 to 306 (15% smaller)
+                      width: 340, // Increased to fit phone preview
                       child: ProjectCard(project: projects[index]),
                     ),
                   );
@@ -242,79 +243,97 @@ class ProjectCard extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) => ProjectDetailPage(projectId: project.id),
             ),
-            
           );
         },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-                  image: DecorationImage(
-                    image: NetworkImage(project.imageUrl),
-                    fit: BoxFit.cover,
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 420), // Make card taller
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
+                      bottomLeft: Radius.circular(40),
+                      bottomRight: Radius.circular(40),
+                    ),
+                  ),
+                  margin: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 8),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: SizedBox(
+                      height: 240, // Even larger image area
+                      child: AspectRatio(
+                        aspectRatio: 9 / 16,
+                        child: Image.network(
+                          project.imageUrl,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    project.name,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontSize: Theme.of(context).textTheme.titleMedium!.fontSize! * 1.10,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Text(
-                        '\$${project.projectedRevenue}K/${project.projectionYears} yr',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[600],
-                          fontWeight: FontWeight.w500,
-                        ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      project.name,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontSize: Theme.of(context).textTheme.titleMedium!.fontSize! * 1.10,
+                        fontWeight: FontWeight.w700,
                       ),
-                      const SizedBox(width: 4),
-                      Tooltip(
-                        message: 'AI projected ${project.projectionYears} year revenue',
-                        child: Icon(
-                          Icons.help_outline,
-                          size: 14,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    project.description,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontSize: Theme.of(context).textTheme.bodySmall!.fontSize!,
                     ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _buildStat('\$${(project.raisedAmount/1000000).toStringAsFixed(1)}M', 'Raised'),
-                      _buildStat('${project.investorCount}', 'Investors'),
-                      _buildStat('\$${project.minInvestment}', 'Min. Investment'),
-                    ],
-                  ),
-                ],
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        Text(
+                          '\$${project.projectedRevenue}K/${project.projectionYears} yr',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[600],
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Tooltip(
+                          message: 'AI projected ${project.projectionYears} year revenue',
+                          child: Icon(
+                            Icons.help_outline,
+                            size: 14,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      project.description,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: Theme.of(context).textTheme.bodySmall!.fontSize!,
+                      ),
+                      maxLines: 4, // Allow longer descriptions
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buildStat('\$${(project.raisedAmount/1000000).toStringAsFixed(1)}M', 'Raised'),
+                        _buildStat('${project.investorCount}', 'Investors'),
+                        _buildStat('\$${project.minInvestment}', 'Min. Investment'),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
