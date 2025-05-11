@@ -87,4 +87,36 @@ class ProjectService {
       return null;
     }
   }
+
+  Future<void> updateProject(Project project) async {
+    try {
+      await _firestore
+          .collection('projects')
+          .doc(project.id)
+          .withConverter(
+            fromFirestore: (snapshot, _) => Project.fromFirestore(snapshot),
+            toFirestore: (Project project, _) => project.toFirestore(),
+          )
+          .set(project);
+    } catch (e) {
+      print('Error updating project: $e');
+      rethrow;
+    }
+  }
+
+  Future<void> createProject(Project project) async {
+    try {
+      await _firestore
+          .collection('projects')
+          .doc(project.id)
+          .withConverter(
+            fromFirestore: (snapshot, _) => Project.fromFirestore(snapshot),
+            toFirestore: (Project project, _) => project.toFirestore(),
+          )
+          .set(project);
+    } catch (e) {
+      print('Error creating project: $e');
+      rethrow;
+    }
+  }
 } 

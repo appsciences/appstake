@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../pages/explore_page.dart';
 import '../pages/how_it_works_page.dart';
+import '../pages/create_project_page.dart';
 
 class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
   final String currentPage;
@@ -40,7 +41,12 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: currentPage == 'start' 
               ? null 
               : () {
-                  // TODO: Navigate to start project
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CreateProjectPage(),
+                    ),
+                  );
                 },
         ),
         TextButton.icon(
