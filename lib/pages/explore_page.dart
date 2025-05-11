@@ -293,7 +293,7 @@ class ProjectCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '\$${project.projectedRevenue}K/${project.projectionYears} yr',
+                          '✨ \$${project.projectedRevenue}K/${project.projectionYears} yr',
                           style: TextStyle(
                             fontSize: 12,
                             color: Colors.grey[600],

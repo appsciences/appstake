@@ -63,9 +63,17 @@ class ProjectDetailPage extends StatelessWidget {
                   ),
                 ],
                 flexibleSpace: FlexibleSpaceBar(
-                  background: Image.network(
-                    project.imageUrl,
-                    fit: BoxFit.cover,
+                  background: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
+                      bottomLeft: Radius.circular(40),
+                      bottomRight: Radius.circular(40),
+                    ),
+                    child: Image.network(
+                      project.imageUrl,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
