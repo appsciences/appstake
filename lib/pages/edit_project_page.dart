@@ -202,73 +202,78 @@ class _EditProjectPageState extends State<EditProjectPage> {
               // Image upload area
               GestureDetector(
                 onTap: _pickImage,
-                child: Container(
-                  height: 200,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: Colors.grey[400]!,
-                      width: 2,
-                      style: BorderStyle.solid,
+                child: Center(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 24, bottom: 24),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
+                        bottomLeft: Radius.circular(40),
+                        bottomRight: Radius.circular(40),
+                      ),
                     ),
-                  ),
-                  child: Stack(
-                    children: [
-                      if (_selectedImageBytes != null)
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.memory(
-                            _selectedImageBytes!,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: double.infinity,
-                          ),
-                        )
-                      else if (widget.project.imageUrl.isNotEmpty)
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            widget.project.imageUrl,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: double.infinity,
-                          ),
-                        )
-                      else
-                        const Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
+                        bottomLeft: Radius.circular(40),
+                        bottomRight: Radius.circular(40),
+                      ),
+                      child: SizedBox(
+                        width: 240,
+                        child: AspectRatio(
+                          aspectRatio: 9 / 16,
+                          child: Stack(
                             children: [
-                              Icon(Icons.add_photo_alternate, size: 50),
-                              SizedBox(height: 8),
-                              Text('Click to select an image'),
+                              if (_selectedImageBytes != null)
+                                Image.memory(
+                                  _selectedImageBytes!,
+                                  fit: BoxFit.cover,
+                                )
+                              else if (widget.project.imageUrl.isNotEmpty)
+                                Image.network(
+                                  widget.project.imageUrl,
+                                  fit: BoxFit.cover,
+                                )
+                              else
+                                const Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.add_photo_alternate, size: 50),
+                                      SizedBox(height: 8),
+                                      Text('Click to select an image'),
+                                    ],
+                                  ),
+                                ),
+                              if (_isUploading)
+                                Container(
+                                  color: Colors.black54,
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        CircularProgressIndicator(
+                                          value: _uploadProgress,
+                                          backgroundColor: Colors.white,
+                                          valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                                        ),
+                                        SizedBox(height: 8),
+                                        Text(
+                                          '${(_uploadProgress * 100).toStringAsFixed(1)}%',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                             ],
                           ),
                         ),
-                      if (_isUploading)
-                        Container(
-                          color: Colors.black54,
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircularProgressIndicator(
-                                  value: _uploadProgress,
-                                  backgroundColor: Colors.white,
-                                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  '${(_uploadProgress * 100).toStringAsFixed(1)}%',
-                                  style: const TextStyle(color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                    ],
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -431,73 +436,78 @@ class _ProjectFormState extends State<ProjectForm> {
           // Image upload area
           GestureDetector(
             onTap: widget.onPickImage,
-            child: Container(
-              height: 200,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: Colors.grey[400]!,
-                  width: 2,
-                  style: BorderStyle.solid,
+            child: Center(
+              child: Container(
+                margin: const EdgeInsets.only(top: 24, bottom: 24),
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40),
+                  ),
                 ),
-              ),
-              child: Stack(
-                children: [
-                  if (widget.selectedImageBytes != null)
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.memory(
-                        widget.selectedImageBytes!,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
-                    )
-                  else if (widget.project?.imageUrl != null && widget.project!.imageUrl.isNotEmpty)
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        widget.project!.imageUrl,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
-                    )
-                  else
-                    const Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40),
+                  ),
+                  child: SizedBox(
+                    width: 240,
+                    child: AspectRatio(
+                      aspectRatio: 9 / 16,
+                      child: Stack(
                         children: [
-                          Icon(Icons.add_photo_alternate, size: 50),
-                          SizedBox(height: 8),
-                          Text('Click to select an image'),
+                          if (widget.selectedImageBytes != null)
+                            Image.memory(
+                              widget.selectedImageBytes!,
+                              fit: BoxFit.cover,
+                            )
+                          else if (widget.project?.imageUrl != null && widget.project!.imageUrl.isNotEmpty)
+                            Image.network(
+                              widget.project!.imageUrl,
+                              fit: BoxFit.cover,
+                            )
+                          else
+                            const Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.add_photo_alternate, size: 50),
+                                  SizedBox(height: 8),
+                                  Text('Click to select an image'),
+                                ],
+                              ),
+                            ),
+                          if (widget.isUploading)
+                            Container(
+                              color: Colors.black54,
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    CircularProgressIndicator(
+                                      value: widget.uploadProgress,
+                                      backgroundColor: Colors.white,
+                                      valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      '${(widget.uploadProgress * 100).toStringAsFixed(1)}%',
+                                      style: const TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                         ],
                       ),
                     ),
-                  if (widget.isUploading)
-                    Container(
-                      color: Colors.black54,
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircularProgressIndicator(
-                              value: widget.uploadProgress,
-                              backgroundColor: Colors.white,
-                              valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              '${(widget.uploadProgress * 100).toStringAsFixed(1)}%',
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                ],
+                  ),
+                ),
               ),
             ),
           ),
