@@ -180,6 +180,10 @@ class _EditProjectPageState extends State<EditProjectPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
         title: const Text('Edit Project'),
         actions: [
           IconButton(
