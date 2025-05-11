@@ -17,43 +17,47 @@ class ProjectService {
     String? sortBy,
     int? limit,
   }) {
-    Query query = _firestore.collection('projects');
-    
-    switch (sortBy) {
-      case 'newest':
-        query = query.orderBy('createdAt', descending: true);
-        break;
-      case 'mostFunded':
-        query = query.orderBy('raisedAmount', descending: true);
-        break;
-      case 'active':
-        // First filter by active status, then sort by raised amount
-        query = query
-                    .orderBy('investorCount', descending: true);
-        break;
-      default:
-        query = query.orderBy('createdAt', descending: true);
-    }
+    try {
+      Query query = _firestore.collection('projects');
+      
+      switch (sortBy) {
+        case 'newest':
+          query = query.orderBy('createdAt', descending: true);
+          break;
+        case 'mostFunded':
+          query = query.orderBy('raisedAmount', descending: true);
+          break;
+        case 'active':
+          query = query.orderBy('investorCount', descending: true);
+          break;
+        default:
+          query = query.orderBy('createdAt', descending: true);
+      }
 
-    if (status != null && status != 'all' && sortBy != 'active') {
-      query = query.where('status', isEqualTo: status);
-    }
+      if (status != null && status != 'all' && sortBy != 'active') {
+        query = query.where('status', isEqualTo: status);
+      }
 
-    if (limit != null) {
-      query = query.limit(limit);
+      if (limit != null) {
+        query = query.limit(limit);
+      }
+      
+      return query
+          .withConverter(
+            fromFirestore: (snapshot, _) => Project.fromFirestore(snapshot),
+            toFirestore: (Project project, _) => project.toFirestore(),
+          )
+          .snapshots()
+          .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
+    } catch (e) {
+      // Return an empty list stream in case of error
+      return Stream.value([]);
     }
-    
-    return query
-        .withConverter(
-          fromFirestore: (snapshot, _) => Project.fromFirestore(snapshot),
-          toFirestore: (Project project, _) => project.toFirestore(),
-        )
-        .snapshots()
-        .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
   }
 
   Future<Project?> getProject(String id) async {
     try {
+      // Try cache first
       final doc = await _firestore
           .collection('projects')
           .doc(id)
@@ -79,6 +83,7 @@ class ProjectService {
           
       return serverDoc.data();
     } catch (e) {
+      print('Error fetching project: $e');
       return null;
     }
   }

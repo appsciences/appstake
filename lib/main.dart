@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'utils/firebase_initializer.dart';
 import 'pages/explore_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FirebaseInitializer.initialize();
-  // Uncomment the next line to load sample data (only do this once)
-  await FirebaseInitializer.loadSampleData();
+  
+  try {
+    await FirebaseInitializer.initialize();
+    print('Firebase initialized successfully');
+  } catch (e) {
+    print('Error initializing Firebase: $e');
+  }
+  
   runApp(const AppStake());
 }
 
@@ -28,7 +35,7 @@ class AppStake extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          color: Color.fromARGB(255, 247, 248, 245),
+          color: const Color.fromARGB(255, 247, 248, 245),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
