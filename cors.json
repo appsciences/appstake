@@ -1,0 +1,11 @@
+[
+  {
+    "origin": [
+      "https://appstake-5a80f.web.app",
+      "https://app.appstake.net",
+      "http://localhost:59013" 
+    ],
+    "method": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    "maxAgeSeconds": 3600
+  }
+] 
