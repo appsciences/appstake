@@ -16,6 +16,8 @@ class SampleDataGenerator {
         'deadline': Timestamp.fromDate(
           DateTime.now().add(const Duration(days: 45)),
         ),
+        'investorCount': 45,
+        'minInvestment': 100,
         'projectedRevenue': 100,
         'projectionYears': 3,
       },
@@ -30,6 +32,8 @@ class SampleDataGenerator {
         'deadline': Timestamp.fromDate(
           DateTime.now().add(const Duration(days: 60)),
         ),
+        'investorCount': 28,
+        'minInvestment': 100,
         'projectedRevenue': 100,
         'projectionYears': 3,
       },
@@ -44,6 +48,8 @@ class SampleDataGenerator {
         'deadline': Timestamp.fromDate(
           DateTime.now().add(const Duration(days: 30)),
         ),
+        'investorCount': 92,
+        'minInvestment': 100,
         'projectedRevenue': 100,
         'projectionYears': 3,
       },
@@ -60,6 +66,8 @@ class SampleDataGenerator {
         'deadline': Timestamp.fromDate(
           DateTime.now().subtract(const Duration(days: 30)),
         ),
+        'investorCount': 150,
+        'minInvestment': 100,
         'projectedRevenue': 100,
         'projectionYears': 3,
       },
@@ -74,6 +82,8 @@ class SampleDataGenerator {
         'deadline': Timestamp.fromDate(
           DateTime.now().add(const Duration(days: 90)),
         ),
+        'investorCount': 0,
+        'minInvestment': 100,
         'projectedRevenue': 100,
         'projectionYears': 3,
       },
